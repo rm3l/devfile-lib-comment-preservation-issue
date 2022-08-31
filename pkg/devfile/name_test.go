@@ -11,15 +11,15 @@ import (
 )
 
 func TestUpdateName(t *testing.T) {
-	fakeFs := filesystem.DefaultFs{}
-	tempDir, err := fakeFs.TempDir("", "devfile")
+	fs := filesystem.DefaultFs{}
+	tempDir, err := fs.TempDir("", "devfile")
 	if err != nil {
 		t.Errorf("could not create temporary file: %v\n", err)
 		return
 	}
 
 	defer func() {
-		_ = fakeFs.RemoveAll(tempDir)
+		_ = fs.RemoveAll(tempDir)
 	}()
 
 	type args struct {
@@ -51,7 +51,7 @@ func TestUpdateName(t *testing.T) {
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			filename := filepath.Join(tempDir, "devfile.yaml")
-			if err = fakeFs.WriteFile(filename, []byte(tt.devfileContent), os.FileMode(0644)); err != nil {
+			if err = fs.WriteFile(filename, []byte(tt.devfileContent), os.FileMode(0644)); err != nil {
 				t.Errorf("could not write content to file %q: %v\n", filename, err)
 				return
 			}
@@ -64,7 +64,7 @@ func TestUpdateName(t *testing.T) {
 			}
 
 			var b []byte
-			b, err = fakeFs.ReadFile(filename)
+			b, err = fs.ReadFile(filename)
 			if err != nil {
 				t.Errorf("could not read content of Devfile at %q: %v\n", filename, err)
 				return
