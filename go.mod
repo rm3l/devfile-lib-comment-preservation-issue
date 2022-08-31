@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/devfile/library v1.2.1-0.20220829191012-877420479dd3
+	github.com/google/go-cmp v0.5.8
 	k8s.io/utils v0.0.0-20220823124924-e9cbc92d1a73
 )
 
